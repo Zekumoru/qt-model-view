@@ -16,7 +16,7 @@ qt_add_executable(appModelView
 set(qml_files
     Main.qml
     components/CppListView.qml
-    components/IntegerListView.qml
+    components/QmlListView.qml
     utils/model.js
 )
 

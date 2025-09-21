@@ -16,22 +16,32 @@ ApplicationWindow {
         anchors.margins: 16
         spacing: 16
 
-        Label {
-            text: "IntegerListView"
-        }
-
-        IntegerListView {
-            Layout.fillWidth: true
+        ColumnLayout {
             Layout.fillHeight: true
+            Layout.preferredHeight: 1
+
+            Label {
+                text: "ListView using C++ model (QAbstractListModel)"
+            }
+
+            CppListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
 
-        Label {
-            text: "CppListView"
-        }
-
-        CppListView {
-            Layout.fillWidth: true
+        ColumnLayout {
             Layout.fillHeight: true
+            Layout.preferredHeight: 1
+
+            Label {
+                text: "ListView using QML model (ListModel)"
+            }
+
+            QmlListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
     }
 }
