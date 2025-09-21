@@ -5,6 +5,7 @@ project(ModelView VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -20,6 +21,8 @@ set(qml_files
 )
 
 set(cpp_sources
+    entities/TodoList.h
+    entities/TodoList.cpp
     models/TodoModel.h
     models/TodoModel.cpp
 )
@@ -50,12 +53,14 @@ set_target_properties(appModelView PROPERTIES
 target_include_directories(appModelView
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/models
+        # [TTRL-2] 13. Make sure that the entities are discoverable
+        ${CMAKE_CURRENT_SOURCE_DIR}/entities
 )
-
 
 target_link_libraries(appModelView
     PRIVATE Qt6::Quick
 )
+target_link_libraries(appModelView PRIVATE Qt6::Core)
 
 include(GNUInstallDirs)
 install(TARGETS appModelView

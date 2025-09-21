@@ -50,4 +50,14 @@ To start creating a C++ model, right click on the left pane where you have your 
 
 On the definition dialog, type the class name and select as base `QAbstractListModel`. Unselect **Customize header row** (because that's for Qt Widgets) and select **Items are editable** for Qt to generate methods for us to enable modifying our C++ models. And then select **Continue** to create the files.
 
-Follow the `[TTRL]` tags (TTRL means TuToRiaL) in the code to know the steps to create a working model. (As of currently, the model **is not modifiable yet**. Check the other git branches since this is more of a snapshot.)
+Follow the `[TTRL]` tags (TTRL means TuToRiaL) in the code to know the steps to create a working unmodifiable model.
+
+## Making A C++ Model Modifiable
+
+Next step is to create a C++ class that will hold the list of model data.
+
+Start creating a new C++ class by right clicking on the left pane and select _"Add new..."_. Here, select **C/C++** and choose **C++ class**. Make the base class a `QObject` and also tick **QML_ELEMENT** so that we can use it in QML.
+
+Then follow the `[TTRL-2]` tags.
+
+Didn't use QMLContext nor the qmlRegisterType thing.

@@ -7,12 +7,20 @@
 //    the newest type registration with QML_ELEMENT
 #include <QtQml/qqmlregistration.h>
 
+// [TTRL-2] 14. Include the TodoList to let the model use it
+#include <entities/TodoList.h>
+
 class TodoModel : public QAbstractListModel
 {
     Q_OBJECT
 
     // [TTRL] 7. Register type
     QML_ELEMENT
+
+    // [TTRL-2] 15. Create a Q_PROPERTY to expose this model's TodoList
+    //              then click on Q_PROPERTY and do Alt + Enter
+    //              (or Option + Enter on Mac) and select GENERATE missing properties.
+    Q_PROPERTY(TodoList *list READ list WRITE setlist NOTIFY listChanged FINAL)
 
 public:
     explicit TodoModel(QObject *parent = nullptr);
@@ -38,7 +46,14 @@ public:
     // [TTRL] 2. Declare roleNames (TODO: explain this)
     virtual QHash<int, QByteArray> roleNames() const override;
 
+    TodoList *list() const;
+    void setlist(TodoList *newList);
+
+signals:
+    void listChanged();
+
 private:
+    TodoList *m_list = nullptr;
 };
 
 #endif // TODOMODEL_H
