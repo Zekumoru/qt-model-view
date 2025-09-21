@@ -62,19 +62,47 @@ Frame {
             }
         }
 
-        Button {
-            text: "Show model data"
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 16
 
-            onClicked: {
-                const data = []
-                for (let i = 0 ; i < todoModel.rowCount(); i++) {
-                    const index = todoModel.index(i, 0)
-                    data.push({
-                        done: todoModel.data(index, TodoModel.DoneRole),
-                        description: todoModel.data(index, TodoModel.DescriptionRole),
-                    })
+            // [TTRL-2] 33. Create a button to append new item
+            Button {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+
+                text: "Add new item"
+
+                onClicked: todoList.appendItem()
+            }
+
+            // [TTRL-2] 34. Create a button to remove completed items
+            Button {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+
+                text: "Remove completed items"
+
+                onClicked: todoList.removeCompletedItems()
+            }
+
+            Button {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+
+                text: "Show model data"
+
+                onClicked: {
+                    const data = []
+                    for (let i = 0 ; i < todoModel.rowCount(); i++) {
+                        const index = todoModel.index(i, 0)
+                        data.push({
+                            done: todoModel.data(index, TodoModel.DoneRole),
+                            description: todoModel.data(index, TodoModel.DescriptionRole),
+                        })
+                    }
+                    console.log(JSON.stringify(data, null, 2))
                 }
-                console.log(JSON.stringify(data, null, 2))
             }
         }
     }

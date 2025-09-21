@@ -47,10 +47,28 @@ Frame {
             }
         }
 
-        Button {
-            text: "Show model data"
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 16
 
-            onClicked: console.log(Model.stringify(todoModel))
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+            }
+
+            Button {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+
+                text: "Show model data"
+
+                onClicked: console.log(Model.stringify(todoModel))
+            }
         }
     }
 }
