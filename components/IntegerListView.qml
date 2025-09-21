@@ -2,37 +2,55 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import "../utils/model.js" as Model
+
 Frame {
-    ListView {
+    ListModel {
+        id: todoModel
+
+        ListElement {
+            done: true
+            description: "Wash the dishes"
+        }
+
+        ListElement {
+            done: false
+            description: "Fix the sink"
+        }
+    }
+
+    ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 16
-        clip: true
+        spacing: 16
 
-        model: ListModel {
-            ListElement {
-                done: true
-                description: "Wash the dishes"
-            }
+        ListView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            ListElement {
-                done: false
-                description: "Fix the sink"
+            clip: true
+
+            model: todoModel
+
+            delegate: RowLayout {
+                width: if (parent) parent.width
+
+                CheckBox {
+                    checked: model.done
+                    onClicked: model.done = checked
+                }
+
+                TextField {
+                    Layout.fillWidth: true
+                    text: model.description
+                    onTextEdited: model.description = text
+                }
             }
         }
 
-        delegate: RowLayout {
-            width: if (parent) parent.width
+        Button {
+            text: "Show model data"
 
-            CheckBox {
-                checked: model.done
-                onClicked: model.done = checked
-            }
-
-            TextField {
-                Layout.fillWidth: true
-                text: model.description
-                onEditingFinished: model.description = text
-            }
+            onClicked: console.log(Model.stringify(todoModel))
         }
     }
 }

@@ -14,13 +14,21 @@ qt_add_executable(appModelView
 
 set(qml_files
     Main.qml
+    components/CppListView.qml
     components/IntegerListView.qml
+    utils/model.js
+)
+
+set(cpp_sources
+    models/TodoModel.h
+    models/TodoModel.cpp
 )
 
 qt_add_qml_module(appModelView
     URI ModelView
     VERSION 1.0
     QML_FILES ${qml_files}
+    SOURCES ${cpp_sources}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
