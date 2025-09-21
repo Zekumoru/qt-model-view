@@ -42,6 +42,17 @@ set_target_properties(appModelView PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+# [TTRL] 8. Make sure that models are discoverable
+# The docs state:
+# "Furthermore, your class declarations have to live in
+#  headers reachable via your project's include path."
+# (See: https://doc.qt.io/qt-6/qtqml-cppintegration-definetypes.html#preconditions)
+target_include_directories(appModelView
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/models
+)
+
+
 target_link_libraries(appModelView
     PRIVATE Qt6::Quick
 )

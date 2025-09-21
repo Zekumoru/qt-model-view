@@ -2,7 +2,9 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "../utils/model.js" as Model
+// [TTRL] 9. Import module where the C++ model lives
+//           (Which in this case is the same module as the main one)
+import ModelView
 
 Frame {
     ColumnLayout {
@@ -15,15 +17,28 @@ Frame {
 
             clip: true
 
-            model: 100
+            // [TTRL] 10. Use the model
+            model: TodoModel { id: todoModel }
 
             delegate: RowLayout {
+                // [TTRL] 11. Set the properties to use
+                //            (There's no intellisense unfortunately on
+                //             `model` or `modelData`, but rather, they're given
+                //             by these required properties.)
+                required property bool done
+                required property string description
+
                 width: if (parent) parent.width
 
-                CheckBox { }
+                CheckBox {
+                    checked: done
+                    onClicked: done = checked
+                }
 
                 TextField {
                     Layout.fillWidth: true
+                    text: description
+                    onTextEdited: description = text
                 }
             }
         }
@@ -31,7 +46,17 @@ Frame {
         Button {
             text: "Show model data"
 
-            onClicked: console.log("No model yet")
+            onClicked: {
+                const data = []
+                for (let i = 0 ; i < todoModel.rowCount(); i++) {
+                    const index = todoModel.index(i, 0)
+                    data.push({
+                        done: todoModel.data(index, TodoModel.DoneRole),
+                        description: todoModel.data(index, TodoModel.DescriptionRole),
+                    })
+                }
+                console.log(JSON.stringify(data, null, 2))
+            }
         }
     }
 }

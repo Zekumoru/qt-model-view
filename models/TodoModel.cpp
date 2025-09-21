@@ -11,7 +11,8 @@ int TodoModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    // FIXME: Implement me!
+    // [TTRL] 4. Create 100 stub todos for testing purposes
+    return 100;
 }
 
 QVariant TodoModel::data(const QModelIndex &index, int role) const
@@ -19,7 +20,14 @@ QVariant TodoModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    // FIXME: Implement me!
+    // [TTRL] 5. Add dummy content for testing purposes for each role
+    switch (role) {
+    case DoneRole:
+        return QVariant(false);
+    case DescriptionRole:
+        return QVariant(QStringLiteral("Test Description"));
+    }
+
     return QVariant();
 }
 
@@ -39,4 +47,13 @@ Qt::ItemFlags TodoModel::flags(const QModelIndex &index) const
         return Qt::NoItemFlags;
 
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable; // FIXME: Implement me!
+}
+
+// [TTRL] 3. Define roleNames
+QHash<int, QByteArray> TodoModel::roleNames() const
+{
+    return {
+        { DoneRole, "done" },
+        { DescriptionRole, "description" }
+    };
 }
